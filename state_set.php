@@ -13,7 +13,7 @@ $body = json_decode( file_get_contents('php://input'), true);
 
 $state = $body['state'];
 
-LOGGER($state);
+// LOGGER( json_encode( $state) );
 
 file_put_contents( $timestamp, time() );
 // file_put_contents( $mod,  )

@@ -2,7 +2,7 @@ const root = '/projects/mirrorpoll'
 
 const poll_time = 3000
 
-const content = document.querySelector('#content')
+const content = document.querySelector('#sample-content')
 
 let NEEDS_UPDATE = false
 
@@ -18,6 +18,10 @@ for( const control of sample_controls ){
 	})
 }
 
+
+
+
+
 let poll_read = setInterval( () => {
 
 	fetch( root + '/state_get.php', {
@@ -27,15 +31,11 @@ let poll_read = setInterval( () => {
 		res.json()
 		.then( r => {
 			if( r.success ){
-				if( content ){
-					// you still need this after res.json() because state is stored as text.
-					// so the first parse() just does the response, not the state
-					const state = JSON.parse( r.state )
 
-					apply_server_state( state )
+				const state = JSON.parse( r.state )
 
-					content.innerText = ( JSON.stringify( state, false, 4 ) )
-				}
+				apply_server_state( state )
+
 			}else{
 				console.log( r )
 			}
@@ -46,6 +46,12 @@ let poll_read = setInterval( () => {
 	})
 
 }, poll_time )
+
+
+
+
+
+
 
 
 
@@ -103,7 +109,7 @@ const bundle_state = () => {
 
 // the main function
 const apply_server_state = state => { 
-
-	console.log('doin the magic', state )
+	
+	content.innerText = ( JSON.stringify( state, false, 4 ) )
 
 }

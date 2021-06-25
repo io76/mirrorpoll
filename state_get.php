@@ -1,5 +1,7 @@
 <?php
 
+include './logger.php';
+
 $r = (object)[ 'success' => true ];
 
 $state = file_get_contents('./txt/.state.txt');
@@ -12,6 +14,8 @@ $r->state = '';
 $r->modified = $modified;
 
 if( $modified !== $body['modified'] ){
+	LOGGER($state);
+	
 	$r->state = $state;
 }
 
